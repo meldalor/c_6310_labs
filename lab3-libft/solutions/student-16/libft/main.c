@@ -81,6 +81,34 @@ static void	test_alloc(void)
 	free(split);
 }
 
+static char	upper_char(unsigned int i, char c)
+{
+	(void)i;
+	if (c >= 'a' && c <= 'z')
+		return (c - 32);
+	return (c);
+}
+
+static void	mark_vowel(unsigned int i, char *c)
+{
+	(void)i;
+	if (*c == 'a' || *c == 'e' || *c == 'i' || *c == 'o' || *c == 'u')
+		*c = '*';
+}
+
+static void	test_map_iter(void)
+{
+	char	*result;
+	char	str[] = "hello world";
+
+	printf("\n=== strmapi / striteri ===\n");
+	result = ft_strmapi("hello world", upper_char);
+	printf("ft_strmapi (upper): %s\n", result);
+	free(result);
+	ft_striteri(str, mark_vowel);
+	printf("ft_striteri (vowels->*): %s\n", str);
+}
+
 static void	del(void *content)
 {
 	free(content);
@@ -117,6 +145,7 @@ int	main(void)
 	test_strings();
 	test_memory();
 	test_alloc();
+	test_map_iter();
 	test_lists();
 	printf("\n=== All tests done ===\n");
 	return (0);
